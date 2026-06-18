@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Правила проекта</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 30px 20px;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: #080e1a;
+            background-image:
+                radial-gradient(ellipse at 25% 30%, rgba(40, 140, 255, 0.10) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 70%, rgba(20, 100, 220, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 80, 200, 0.03) 0%, transparent 60%),
+                linear-gradient(160deg, #0b182e 0%, #060e1e 50%, #040a16 100%);
+            background-attachment: fixed;
+        }
+
+        /* ── контейнер ── */
+        .glass {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 100%;
+            background: rgba(8, 18, 38, 0.55);
+            backdrop-filter: blur(20px) saturate(1.3);
+            -webkit-backdrop-filter: blur(20px) saturate(1.3);
+            border-radius: 24px;
+            padding: 38px 42px 30px;
+            border: 1px solid rgba(80, 180, 255, 0.06);
+            box-shadow:
+                0 20px 60px rgba(0, 20, 60, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03),
+                0 0 80px rgba(0, 80, 200, 0.02);
+        }
+
+        .glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+            border-radius: 24px 24px 0 0;
+            pointer-events: none;
+        }
+
+        /* ── шапка ── */
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(80, 180, 255, 0.06);
+            margin-bottom: 26px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(0, 150, 255, 0.05);
+        }
+
+        .header h1 span {
+            color: #5bb8ff;
+        }
+
+        .header .sub {
+            font-size: 11px;
+            color: rgba(100, 180, 220, 0.15);
+            letter-spacing: 4px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* ── разделы ── */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #6bc0ff;
+            letter-spacing: 0.8px;
+            padding-left: 14px;
+            border-left: 4px solid rgba(80, 180, 255, 0.25);
+            margin-bottom: 16px;
+            margin-top: 8px;
+            text-shadow: 0 0 20px rgba(0, 120, 255, 0.04);
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #8ac8ff;
+            padding-left: 10px;
+            margin: 18px 0 10px 0;
+            border-left: 2px solid rgba(80, 180, 255, 0.12);
+        }
+
+        /* ── пункты правил ── */
+        .rule-item {
+            display: flex;
+            gap: 12px;
+            padding: 8px 14px 8px 10px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            line-height: 1.6;
+            border: 1px solid transparent;
+        }
+
+        .rule-item:hover {
+            background: rgba(80, 180, 255, 0.03);
+            border-color: rgba(80, 180, 255, 0.04);
+            transform: translateX(2px);
+        }
+
+        .rule-num {
+            color: #5bb8ff;
+            font-weight: 600;
+            white-space: nowrap;
+            min-width: 38px;
+            font-size: 14px;
+            opacity: 0.7;
+            padding-top: 1px;
+        }
+
+        .rule-text {
+            color: #c4d8e8;
+            font-size: 14.5px;
+            font-weight: 300;
+        }
+
+        .rule-text strong {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .rule-text .highlight {
+            color: #ff6b8a;
+            font-weight: 500;
+        }
+
+        /* ── наказание ── */
+        .punishment-wrap {
+            margin-top: 0px;
+            padding-left: 48px;
+            margin-bottom: 4px;
+        }
+
+        .punishment-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 3px 16px 3px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 400;
+            background: rgba(255, 60, 80, 0.05);
+            border: 1px solid rgba(255, 60, 80, 0.08);
+            color: #ff8a9a;
+            letter-spacing: 0.2px;
+            backdrop-filter: blur(4px);
+            transition: all 0.2s ease;
+        }
+
+        .punishment-badge:hover {
+            background: rgba(255, 60, 80, 0.09);
+            border-color: rgba(255, 60, 80, 0.15);
+        }
+
+        .punishment-badge .icon {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        /* ── опасный пункт (1.6, 1.7, 3.14 и т.д.) ── */
+        .rule-item.danger {
+            background: rgba(255, 40, 70, 0.04);
+            border: 1px solid rgba(255, 40, 70, 0.08);
+            border-radius: 12px;
+            padding: 10px 16px 10px 12px;
+            margin: 2px 0;
+        }
+
+        .rule-item.danger:hover {
+            background: rgba(255, 40, 70, 0.08);
+            border-color: rgba(255, 40, 70, 0.16);
+        }
+
+        .rule-item.danger .rule-num {
+            color: #ff4d6d;
+            opacity: 1;
+            font-weight: 700;
+        }
+
+        .rule-item.danger .rule-text strong {
+            color: #ff6b8a;
+        }
+
+        .rule-item.danger .danger-icon {
+            display: inline-block;
+            margin-right: 4px;
+            font-size: 15px;
+        }
+
+        .punishment-wrap.danger-punishment .punishment-badge {
+            background: rgba(255, 40, 70, 0.08);
+            border-color: rgba(255, 40, 70, 0.12);
+            color: #ff6b8a;
+            font-weight: 500;
+        }
+
+        .punishment-wrap.danger-punishment .punishment-badge:hover {
+            background: rgba(255, 40, 70, 0.14);
+            border-color: rgba(255, 40, 70, 0.20);
+        }
+
+        /* ── список запрещённых модов ── */
+        .mod-list {
+            padding-left: 48px;
+            margin: 6px 0 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+
+        .mod-list .mod-tag {
+            display: inline-block;
+            font-size: 12.5px;
+            color: #a0bcd0;
+            background: rgba(80, 180, 255, 0.04);
+            border: 1px solid rgba(80, 180, 255, 0.06);
+            border-radius: 6px;
+            padding: 2px 12px;
+            font-weight: 300;
+            transition: all 0.2s ease;
+        }
+
+        .mod-list .mod-tag:hover {
+            background: rgba(80, 180, 255, 0.08);
+            border-color: rgba(80, 180, 255, 0.12);
+        }
+
+        /* ── термины ── */
+        .term-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 20px;
+            padding: 6px 14px;
+        }
+
+        .term-item {
+            display: flex;
+            gap: 8px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .term-item:hover {
+            background: rgba(80, 180, 255, 0.03);
+        }
+
+        .term-item .term-name {
+            color: #6bc0ff;
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            min-width: 90px;
+        }
+
+        .term-item .term-desc {
+            color: #a0bcd0;
+            font-size: 13.5px;
+            font-weight: 300;
+        }
+
+        /* ── футер ── */
+        .footer {
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(80, 180, 255, 0.04);
+            text-align: center;
+            font-size: 10px;
+            color: rgba(100, 170, 210, 0.12);
+            letter-spacing: 3px;
+            font-weight: 300;
+        }
+
+        /* ── адаптив ── */
+        @media (max-width: 700px) {
+            .glass {
+                padding: 20px 14px 18px;
+                border-radius: 18px;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .rule-item {
+                padding: 6px 8px;
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+            .rule-item.danger {
+                padding: 8px 10px;
+            }
+            .rule-num {
+                min-width: 28px;
+                font-size: 13px;
+            }
+            .rule-text {
+                font-size: 13.5px;
+            }
+            .punishment-wrap {
+                padding-left: 36px;
+            }
+            .section-title {
+                font-size: 17px;
+                padding-left: 10px;
+            }
+            .subsection-title {
+                font-size: 14px;
+            }
+            .term-grid {
+                grid-template-columns: 1fr;
+            }
+            .mod-list {
+                padding-left: 36px;
+            }
+            .mod-list .mod-tag {
+                font-size: 11.5px;
+                padding: 1px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glass {
+                padding: 14px 10px 14px;
+            }
+            .header h1 {
+                font-size: 18px;
+            }
+            .rule-text {
+                font-size: 12.5px;
+            }
+            .punishment-badge {
+                font-size: 11.5px;
+                padding: 2px 10px 2px 8px;
+            }
+            .rule-num {
+                font-size: 12px;
+                min-width: 24px;
+            }
+            .section-title {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glass">
+
+    <!-- ====== ШАПКА ====== -->
+    <div class="header">
+        <h1>Правила <span>проекта</span></h1>
+        <div class="sub">соблюдай — не пожалеешь</div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      ПРЕАМБУЛА                                 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                <strong>Правила Майнкрафт сервера распространяются и на Дискорд в том числе.</strong>
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                Любой человек, прошедший регистрацию, автоматически соглашается с данным сводом правил и обязуется выполнять их.
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                На сервере действуют нормы <strong>законодательства Российской Федерации</strong>, которые дополняют существующие правила. Нарушение законов РФ, включая распространение запрещённого контента или экстремистскую деятельность, строго запрещено.
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                Администрация <strong>не обязана</strong> возвращать вам ресурсы которые были утрачены в следствии ситуаций таких как согласованное PvP, Баг, Очистка (за исключением некоторых ситуаций).
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                Модерация имеет право самостоятельно устанавливать время и тяжесть наказания, сумму штрафа, <strong>отличающееся от того, что указано в правиле</strong>, исходя из индивидуальной ситуации, а также тяжести и частоты нарушений конкретного игрока или группы лиц, в первую очередь руководствуясь здравым смыслом.
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                Модерация может выдавать несколько видов наказаний одновременно, к примеру, уплата штрафа с варном.
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                Все штрафы идут в казну сервера, лишь в некоторых ситуациях модерация может назначить нарушителю дополнительно выплату пострадавшей стороне.
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                <strong>Повторные нарушения (рецидивы) наказываются гораздо строже</strong>, чем первичные.
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                Независимо от статуса игрока, будь он Спонсор, Меценат, Модератор — <strong>все равны</strong> и все понесут наказание за нарушение правил. Не относится к руководству проекта.
+            </span>
+        </div>
+        <div class="rule-item">
+            <span class="rule-num"></span>
+            <span class="rule-text">
+                <strong>Незнание правил не освобождает</strong> игрока от ответственности за их нарушение.
+            </span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      1. ОБЩЕЕ ПОЛОЖЕНИЕ                        -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">1. Общее положение</div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.1.</span>
+            <span class="rule-text">
+                Администрация имеет право выдавать наказание за нарушения <strong>не указанные</strong> в данном своде правил, если посчитает, что Ваши действия приносят вред игрокам и/или проекту в целом.
+            </span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.2.</span>
+            <span class="rule-text">
+                Администрация вправе выдать наказание за нарушение правил, даже если оно было совершено давно, например, <strong>полгода назад</strong>. При этом наказание может быть вынесено по правилам того времени или по действующим правилам на усмотрение администрации.
+            </span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.3.</span>
+            <span class="rule-text">
+                Администрация <strong>не несёт ответственность</strong> за сохранность ресурсов, построек и работоспособность ферм игрока и вправе не восстанавливать их.
+            </span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.4.</span>
+            <span class="rule-text">
+                Запрещено пытаться <strong>обходить правила</strong> и наказания каким-либо способом или найти в них лазейку.
+            </span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.5.</span>
+            <span class="rule-text">
+                Запрещена <strong>провокация</strong> игроков на нарушение правил. Нежелательно задавать вопросы или делать заявления, которые могут создать конфликтную ситуацию или подтолкнуть к нарушению.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: в зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item danger">
+            <span class="rule-num">1.6.</span>
+            <span class="rule-text">
+                <span class="danger-icon">⛔</span>
+                Запрещены любые действия, связанные с <strong>политикой и религией</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap danger-punishment">
+            <span class="punishment-badge"><span class="icon">⛔</span> Наказание: Бан от 5 дней, вплоть до бана по IP навсегда</span>
+        </div>
+
+        <div class="rule-item danger">
+            <span class="rule-num">1.7.</span>
+            <span class="rule-text">
+                <span class="danger-icon">⛔</span>
+                Запрещены любые формы <strong>пропаганды нацизма</strong>, его оправдания, упоминания, а также использование нацистских, экстремистских или запрещённых законом РФ символов, атрибутов и лозунгов.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: в зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.8.</span>
+            <span class="rule-text">
+                Запрещено <strong>психологическое давление</strong> на администрацию или других игроков, включая: угрозы, шантаж, вымогательства, излишне навязчивые вопросы; манипуляции недосказанности в правилах, направленные против других игроков; попытки навязывать администрации её обязанности.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут от 2 часов, вплоть до бана по IP навсегда</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.9.</span>
+            <span class="rule-text">
+                Запрещается <strong>использование и распространение уязвимостей</strong> сервера.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.10.</span>
+            <span class="rule-text">
+                Запрещены любые виды <strong>обмана</strong>, введения в заблуждение или злоупотребления доверием игроков, пускать любые ложные сведения о сервере и его администрации.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан на 30 дней, вплоть до ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">1.11.</span>
+            <span class="rule-text">
+                Запрещено <strong>сокрытие и помощь нарушителям</strong> проекта.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Пособничество им квалифицируется как соучастие.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Назначается в той же мере, как и самому нарушителю</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      2. ИГРОВОЙ ЧАТ                            -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">2. Игровой чат</div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.1.</span>
+            <span class="rule-text">
+                Запрещается <strong>спам и флуд</strong>, а также злоупотребление матом, включая завуалированный. Исключениями являются локальный, голосовой и личные чаты, однако запрещено чрезмерное использование нецензурной лексики в них.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут от 1 до 8 часов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.2.</span>
+            <span class="rule-text">
+                Запрещается <strong>оскорблять</strong>, унижать честь и достоинство, а также отправлять в чат провокационные сообщения, разжигать конфликты.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут от 2 часов, вплоть до бана по IP</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.3.</span>
+            <span class="rule-text">
+                Запрещается <strong>упоминание родителей или родственников</strong> в оскорбительной/унизительной форме.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан от 2 дней, вплоть до бана по IP навсегда</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.4.</span>
+            <span class="rule-text">
+                Запрещена <strong>реклама сторонних ресурсов</strong> в любом виде. Исключением является реклама материалов на медиа ресурсах, если они прямо или косвенно связаны с содержанием данного сервера и не нарушают его правил (по соглашению с администрацией).
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.5.</span>
+            <span class="rule-text">
+                Официальный язык общения на сервере — <strong>русский</strong>. Допускается общение на английском, казахском, белорусском и украинском языках. Если вы используете другой язык, это должно происходить только в локальном или личном чате. Использование транслита приравнивается к иностранному языку (исключение — если у игрока нет кириллицы). Разрешены популярные и понятные всем фразы на иностранных языках.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут от 1 часа, вплоть до бана на 30 дней</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.6.</span>
+            <span class="rule-text">
+                Запрещено просить администрацию о помощи <strong>без указания причины</strong>, а также запрашивать в общем чате и личных сообщениях рассмотрение жалоб/заявок.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут от 1 часа, вплоть до варна</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.7.</span>
+            <span class="rule-text">
+                Запрещены <strong>оскорбления сервера</strong> и неаргументированная критика.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.8.</span>
+            <span class="rule-text">
+                Запрещена <strong>неконструктивная критика</strong>/обсуждение действий администрации и участников модерации на сервере.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут от 1 часа</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">2.9.</span>
+            <span class="rule-text">
+                Запрещено <strong>попрошайничество</strong> в любом виде.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут от 1 до 8 часов</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      3. ИГРОВОЙ ПРОЦЕСС                        -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">3. Игровой процесс</div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.1.</span>
+            <span class="rule-text">
+                Запрещается использование <strong>грифа</strong>, а именно:
+                <br/>– Уничтожение или порча построек или карты сервера;
+                <br/>– Кража предметов, включая те, которые не запривачены табличкой;
+                <br/>– Убийство существ, принадлежащих другим игрокам;
+                <br/>– Другие формы деструктивного поведения.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Возможно внесение в ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.2.</span>
+            <span class="rule-text">
+                Запрещается создавать <strong>умышленные помехи</strong> в игровом процессе других игроков.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 7 дней</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.3.</span>
+            <span class="rule-text">
+                Запрещено <strong>PVP или убийство игрока</strong> любым способом за пределами своей территории, а также на общественных территориях сервера. Убийство допускается только:
+                <br/>– На своей территории после длительного игнорирования нарушителем просьбы покинуть территорию;
+                <br/>– На PVP-арене с согласием игрока, которая находится на территории спавна;
+                <br/>– При обоюдном согласии за пределами общественных территорий сервера;
+                <br/>– На закрытых территориях;
+                <br/>– Если у игроков влюкчен PvP режим (/pvp)
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Кик, возможен варн, вплоть до бана 5 дней</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.4.</span>
+            <span class="rule-text">
+                Запрещается хранение и использование <strong>головы игрока</strong> без его согласия на передачу или торговлю.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан от 5 дней. Обнуление материала</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.5.</span>
+            <span class="rule-text">
+                Запрещается использование осуждаемых, невидимых и неприличных эмоций при помощи <strong>EmoteCraft</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан от 2 часов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.6.</span>
+            <span class="rule-text">
+                Запрещается <strong>звуковой спам</strong> при помощи PlasmoVoice. В том числе проигрывание или записывание запрещённой, неадекватной или слишком громкой музыки, использование любого вида изменение голоса.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Мут войсчата от 2 часов, вплоть до бана на 2 дня. Удаление пластинки</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.7.</span>
+            <span class="rule-text">
+                Запрещается нарушение правил <strong>ивентов</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн. Бан от 1 часа, вплоть до бана по IP на 1 день</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.8.</span>
+            <span class="rule-text">
+                Запрещается проводить и участвовать в <strong>раздачах</strong> ресурсов, построек, территорий или других предметов, которые не были одобрены старшей администрации. На раздачах должен присутствовать представитель модерации 2-го уровня и выше.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда, возможно занесение в ЧСП. Обнуление ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.9.</span>
+            <span class="rule-text">
+                Запрещается использование мощных или сильно нагружающих <strong>ферм и механизмов</strong> при онлайне от 150 человек и более.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.10.</span>
+            <span class="rule-text">
+                Запрещается строить и использовать конструкции и системы, способные <strong>нарушить или дестабилизировать работу сервера</strong> (например лаг-машины и лаг-зоны).
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда, возможно занесение в ЧСП. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.11.</span>
+            <span class="rule-text">
+                Запрещены постройки с <strong>неприличным или аморальным</strong> содержанием.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Блокировка от 5 дней. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.12.</span>
+            <span class="rule-text">
+                Запрещено использовать, распространять <strong>сид мира</strong> в любом виде.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда, возможно занесение в ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.13.</span>
+            <span class="rule-text">
+                Запрещено использовать в названиях предметов, питомцев и т.д. <strong>мат, сломанные символы, визуальный шум</strong>, неподобающие названия, пр.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Обнуление материала, содержащего мат без возможности восстановления</span>
+        </div>
+
+        <div class="rule-item danger">
+            <span class="rule-num">3.14.</span>
+            <span class="rule-text">
+                <span class="danger-icon">⛔</span>
+                Запрещается использование и хранение <strong>модификаций, находящихся в списке запрещённых</strong>, а также тех, которые выполняют их функции, даже если они отсутствуют в списке.
+            </span>
+        </div>
+        <div class="punishment-wrap danger-punishment">
+            <span class="punishment-badge"><span class="icon">⛔</span> Наказание: Бан от 7 дней, вплоть до ЧСП</span>
+        </div>
+
+        <!-- список модов -->
+        <div style="margin-top:4px; padding-left:14px; color:#8ab4c8; font-size:13px; font-weight:400;">
+            Некоторые примеры запрещенных модификаций:
+        </div>
+        <div class="mod-list">
+            <span class="mod-tag">x-ray</span>
+            <span class="mod-tag">PulseVisuals</span>
+            <span class="mod-tag">FireClient</span>
+            <span class="mod-tag">Inventory Profiles Next</span>
+            <span class="mod-tag">BetterPvP</span>
+            <span class="mod-tag">FreeCam</span>
+            <span class="mod-tag">AutoAttack</span>
+            <span class="mod-tag">Totem Swap</span>
+            <span class="mod-tag">LavaClear</span>
+            <span class="mod-tag">DiamondGen</span>
+            <span class="mod-tag">BedrockMiner</span>
+            <span class="mod-tag">FastBreak</span>
+            <span class="mod-tag">AutoReconnect</span>
+            <span class="mod-tag">Impact</span>
+            <span class="mod-tag">Booktrolling</span>
+            <span class="mod-tag">Wall-Jump</span>
+            <span class="mod-tag">Camera Utils</span>
+            <span class="mod-tag">StepUpNext</span>
+            <span class="mod-tag">Tweakeroo</span>
+            <span class="mod-tag">TrajectoryFabric</span>
+            <span class="mod-tag">Client Vein Miner</span>
+            <span class="mod-tag">CleanCut</span>
+            <span class="mod-tag">SeedCracker</span>
+            <span class="mod-tag">InventoryTotem</span>
+            <span class="mod-tag">ChestESP</span>
+            <span class="mod-tag">CMDCam</span>
+            <span class="mod-tag">InvMove</span>
+            <span class="mod-tag">Mouse Wheelie</span>
+            <span class="mod-tag">AutoFish</span>
+            <span class="mod-tag">Baritone/Fabaritone</span>
+            <span class="mod-tag">Wurst</span>
+            <span class="mod-tag">Inertia</span>
+            <span class="mod-tag">Librarian Trade Finder</span>
+            <span class="mod-tag">No Mining Cooldown</span>
+            <span class="mod-tag">Elytra Utilities</span>
+            <span class="mod-tag">Elytra Swapper</span>
+            <span class="mod-tag">ElytraMace</span>
+        </div>
+
+        <!-- список модов разршеных -->
+        <div style="margin-top:4px; padding-left:14px; color:#8ab4c8; font-size:13px; font-weight:400;">
+            Ращрешеные модификаций:
+        </div>
+        <div class="mod-list">
+            <span class="mod-tag">SoupVisuals</span>
+            <span class="mod-tag">ShieldStatus</span>
+            <span class="mod-tag">TierTagger</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">3.15.</span>
+            <span class="rule-text">
+                Запрещается постройка и использование механизмов, основанных на <strong>дюпе динамита</strong>, для расчистки территории и добычи драгоценных ресурсов.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней. Изъятие добытых ресурсов, откат территории до первоначального вида</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      4. ТЕРРИТОРИИ                             -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">4. Территории</div>
+
+        <div style="padding:6px 14px 10px 14px; color:#8ab4c8; font-size:13.5px; line-height:1.7; border-left:2px solid rgba(80,180,255,0.08); margin-bottom:6px;">
+            <strong style="color:#a8d4ff;">Общественные территории сервера:</strong><br/>
+            – Спавн (диаметр 500 блоков от нулевых координат в Верхнем мире);<br/>
+            – Адский хаб (100 блоков от нулевых координат в Нижнем Мире) и прилежащие ветки;<br/>
+            – Ближайший к спавну портал в Энд;<br/>
+            – Главный остров в Энде.
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.1.</span>
+            <span class="rule-text">
+                Запрещается <strong>порча общественной территории</strong> сервера любым способом, а также возведение на ней приватов.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.2.</span>
+            <span class="rule-text">
+                Максимально разрешённый <strong>приват</strong> для одного игрока — 200×200 блоков, для сообщества — 500×500.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Как только территория застраивается, её можно расширить на 100 блоков. Ограничений по количеству расширений нет.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн. Снос части привата без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.3.</span>
+            <span class="rule-text">
+                Расстояние до территории другого игрока должно быть <strong>не менее 100 блоков</strong>.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: При обоюдном согласии не действует.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.4.</span>
+            <span class="rule-text">
+                Запрещается <strong>присваивать чужой приват</strong>.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Если приват никак не обустроен в течение 30 дней или владелец не появляется на сервере более 40 дней, то при создании тикета в канале #поддержка через раздел "Помощь" администрация может принять решение сделать её свободной.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.5.</span>
+            <span class="rule-text">
+                Каждому игроку и сообществу запрещено иметь в привате <strong>более двух структур или данжей</strong> одного типа.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней. Снятие привата со всех структур и данжей</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.6.</span>
+            <span class="rule-text">
+                Игрокам запрещается <strong>посещать или находиться на территориях</strong>, помеченных как запрещённые, а также на территориях, доступ к которым ограничен индивидуально или владельцем.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Посещением не считается, если игрок однократно взаимодействовал только с одной дверью или другим объектом. Нельзя запрещать посещать территорию игрокам из команды проекта.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Штраф в казну спавна, вплоть до Варна</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.7.</span>
+            <span class="rule-text">
+                Запрещено строить <strong>базу с целью проживания</strong> в Мире Ферм.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.8.</span>
+            <span class="rule-text">
+                Запрещается постройка и использование <strong>общественных ферм</strong>, кроме фермы опыта.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан на 30 дней, вплоть до бана по IP навсегда. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.9.</span>
+            <span class="rule-text">
+                Запрещается строительство <strong>ферм и любых трейд-холлов</strong> в Мире Построек.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: До открытия Мира Ферм разрешено иметь фермы и трейд-холлы в Мире Построек, которые сильно не нагружают сервер. После открытия Мира Ферм игрок обязан уничтожить фермы и трейд-холлы в течение трех дней.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.10.</span>
+            <span class="rule-text">
+                Запрещается строительство и использование <strong>прогрузчиков чанков</strong> в любом виде.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда, вплоть до ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.11.</span>
+            <span class="rule-text">
+                Запрещается <strong>порча карты</strong> сервера.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">4.12.</span>
+            <span class="rule-text">
+                Запрещается <strong>уничтожать сундуки</strong> в структурах.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление ресурсов, полученных данным путём</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      5. ТОРГОВЛЯ                               -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">5. Торговля</div>
+
+        <div style="padding:6px 14px 12px 14px; color:#8ab4c8; font-size:13.5px; line-height:1.7; border-left:2px solid rgba(80,180,255,0.08); margin-bottom:6px;">
+            <strong style="color:#a8d4ff;">Валютой сервера является «АР»:</strong> Алмазоносный Глубинный Сланец; Алмазная Руда.<br/>
+            На сервере действуют <strong>минимальные цены</strong>, распространяющиеся на любой вид торговли.
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.1.</span>
+            <span class="rule-text">
+                Запрещается покупать или продавать внутриигровые ресурсы, услуги, аккаунты и другие ценности <strong>за реальные деньги</strong>, привилегии или любые вознаграждения.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Исключением является осуществление подобных сделок с ресурсами и другими ценностями через магазин сервера.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда, вплоть до ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.2.</span>
+            <span class="rule-text">
+                Запрещается продавать предметы с <strong>подделанными зачарованиями</strong> с помощью добавления лора.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней. Обнуление ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.3.</span>
+            <span class="rule-text">
+                Запрещается намеренное создание <strong>дефицита</strong>, искусственное завышение цены на ресурсы, а также покупка ресурсов для перепродажи с целью дестабилизации экономики сервера.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.4.</span>
+            <span class="rule-text">
+                Запрещается покупка и продажа, а также предложение о покупке и продаже предметов <strong>ниже минимальной цены</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.5.</span>
+            <span class="rule-text">
+                Запрещается попытка <strong>обойти минимальные цены</strong> любым способом, включая раздачу, так называемые "подарки", прочее.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.6.</span>
+            <span class="rule-text">
+                Запрещается <strong>возвращать предмет</strong> после покупки без согласия продавца.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.7.</span>
+            <span class="rule-text">
+                Запрещается забирать алмазную руду и класть свой предмет <strong>при продаже предмета</strong> и наоборот при скупке.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.8.</span>
+            <span class="rule-text">
+                Запрещается продавать и покупать <strong>проходки на трейдхоллы и фермы</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.9.</span>
+            <span class="rule-text">
+                Запрещено продавать <strong>структуры и данжи</strong>.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Разрешено, если они переделаны в ферму.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">5.10.</span>
+            <span class="rule-text">
+                Запрещено продавать предметы со <strong>скинами</strong>, которые не доступны всем игрокам.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Изъятие ресурсов</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      6. АРЕНДА ТОРГОВЫХ ТОЧЕК                  -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">6. Аренда торговых точек на спавне</div>
+
+        <div style="padding:6px 14px 10px 14px; color:#8ab4c8; font-size:13px; line-height:1.6; border-left:2px solid rgba(80,180,255,0.08); margin-bottom:6px;">
+            Торговля на спавне осуществляется через <strong>палатки или ТПМ</strong> (территории под магазин). Для проведения торговли через них требуется получить разрешение на их аренду, которая выдаётся посредством проведения аукциона.
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.1.</span>
+            <span class="rule-text">
+                Каждая ТПМ имеет свой установленный максимальный размер и границы, нарушать которые запрещено. Разрешено создавать подвал, размер которого не должен превышать в высоту 11 блоков, а ширину и длину — размера территории.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Размеры: маленькая — 11×11×15, средняя — 15×15×20, большая — 21×21×35.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до изъятия ресурсов и прекращения аренды</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.2.</span>
+            <span class="rule-text">
+                Для каждой ТПМ и палатки установлено максимальное количество <strong>контейнеров для торговли</strong>, которое запрещено превышать.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Максимум: маленькая — 15, средняя — 30, большая — не менее 40.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.3.</span>
+            <span class="rule-text">
+                В ТПМ или палатке <strong>не менее 50% бочек</strong> от максимального количества должны быть заполнены товаром.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Арендатор должен устранить нарушение в течение 7 дней.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до изъятия ресурсов и прекращения аренды</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.4.</span>
+            <span class="rule-text">
+                У ТПМ или палатки может быть только <strong>один арендатор и один заместитель</strong>.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Назначить нового можно только с разрешения Министра Экономики.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до изъятия ресурсов и прекращения аренды</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.5.</span>
+            <span class="rule-text">
+                Для постройки магазина на ТПМ требуется <strong>создать тикет</strong> в #поддержка и получить разрешение. Магазин должен быть в стилистике спавна.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: После разрешения требуется возвести магазин и заполнить товаром ≥50% бочек в течение 21 дня.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до изъятия ресурсов и прекращения аренды</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.6.</span>
+            <span class="rule-text">
+                Каждая из ТПМ и палаток имеет свою <strong>арендную плату</strong> в неделю, которую арендатор обязан своевременно выплачивать.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Аренда взимается каждое воскресенье.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Изъятие ресурсов и прекращение аренды</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.7.</span>
+            <span class="rule-text">
+                В общей палатке разрешено арендовать только <strong>разрешённое количество бочек</strong>, указанное на табличке.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Арендовать могут только те, кто не арендует территорию.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.8.</span>
+            <span class="rule-text">
+                Каждая палатка имеет установленный вид и размер, который <strong>изменять запрещено</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.9.</span>
+            <span class="rule-text">
+                Делать <strong>светящиеся таблички</strong> разрешено только на ТПМ (макс: маленькая — 5, средняя — 10, большая — 20).
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.10.</span>
+            <span class="rule-text">
+                Каждому игроку и сообществу разрешено арендовать <strong>только одну ТПМ</strong>, палатку или бочку в общественной палатке.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: При вступлении в сообщество требуется освободить аренду в течение 3 дней.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до изъятия ресурсов и прекращения аренды</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.11.</span>
+            <span class="rule-text">
+                Запрещено <strong>продавать и покупать ТПМ</strong> или палатки, а также сдавать их в аренду.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан от 14 дней. Изъятие ресурсов, прекращение аренды. Запрет на аренду до конца сезона</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.12.</span>
+            <span class="rule-text">
+                Запрещено возведение <strong>маяков, стоек с именем и декоративных стоек</strong> на ТПМ.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Маяки разрешены временно для строительства. Декоративные стойки — только с разрешения Министра Спавна.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн. Снос без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.13.</span>
+            <span class="rule-text">
+                Для торговли на ТПМ разрешено использовать только <strong>контейнеры для торговли</strong>: бочки, шалкера, одинарные сундуки и стойки.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.14.</span>
+            <span class="rule-text">
+                Любая торговая точка на спавне и ресурсы на ней <strong>изымаются на аукцион</strong>, если арендатор получил ЧСП или бан навсегда.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Если использование запрещённой модификации давало преимущество в экономике.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Изъятие ресурсов, прекращение аренды. Возможен запрет на аренду на 30 дней</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.15.</span>
+            <span class="rule-text">
+                Владелец ТПМ обязан поддерживать <strong>торговую активность</strong> и стремиться к развитию.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Министр экономики вправе изъять ТПМ на аукцион при отсутствии активности в течение месяца.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Изъятие ТПМ на аукцион</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.16.</span>
+            <span class="rule-text">
+                На складах ТПМ разрешено использовать <strong>только таблички</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">6.17.</span>
+            <span class="rule-text">
+                В палатках и ТПМ разрешено продавать только те <strong>арты</strong>, которые были отказаны в размещении в галерее.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      7. ТОРГОВЛЯ ВНЕ СПАВНА                    -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">7. Торговая деятельность вне спавна</div>
+
+        <div class="rule-item">
+            <span class="rule-num">7.1.</span>
+            <span class="rule-text">
+                Игрокам разрешено создавать личный магазин, банк, бар, казино и торговую зону, но с условием <strong>обязательной регистрации</strong>.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Для регистрации создать тикет в #поддержка через раздел "Деятельность вне спавна".</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до изъятия ресурсов с незарегистрированной территории</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">7.2.</span>
+            <span class="rule-text">
+                Личный магазин, банк, бар, казино и торговая зона могут располагаться только в верхнем измерении <strong>Мира Построек</strong> и на расстоянии <strong>более 1000 блоков</strong> от нулевых координат.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">7.3.</span>
+            <span class="rule-text">
+                Торговать в личном магазине могут только игроки, <strong>входящие в сообщество владельца</strong>, с разрешения самого владельца.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">7.4.</span>
+            <span class="rule-text">
+                В торговой зоне осуществлять торговлю можно только через <strong>контейнеры для торговли</strong>. Максимальное количество на 1 человека или сообщество — <strong>не более 6 штук</strong>.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Контейнерами являются бочки, шалкера, одинарные сундуки и стойки.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">7.5.</span>
+            <span class="rule-text">
+                Ответственность за соблюдение правил в личном магазине или торговой зоне лежит <strong>на владельце территории</strong>.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: При неоднократных нарушениях возможен запрет на функционирование.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Назначение владельцу наказания, равного как и самому нарушителю</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">7.6.</span>
+            <span class="rule-text">
+                Расстояние между личными магазинами, барами, банками, казино, торговыми зонами одного владельца и другого должно составлять <strong>не менее 500 блоков</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      8. АККАУНТ И ПЕРСОНАЛЬНЫЕ ДАННЫЕ          -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">8. Аккаунт и персональные данные</div>
+
+        <div style="padding:6px 14px 10px 14px; color:#8ab4c8; font-size:13px; line-height:1.6; border-left:2px solid rgba(80,180,255,0.08); margin-bottom:6px;">
+            Игрок несёт полную ответственность за безопасность и использование своего аккаунта. Администрация не несёт ответственности за потерю предметов, доступ к аккаунту третьими лицами или любые последствия действий игрока.<br/>
+            Если пароль был забыт, без достаточных доказательств того, что аккаунт принадлежит игроку, администрация вправе отказать в восстановлении доступа.
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">8.1.</span>
+            <span class="rule-text">
+                Запрещается умышленное создание и использование <strong>твинков</strong> в качестве второй личности на сервере.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Можно иметь только один твинк для прогрузки ферм, никнейм — основной ник + _tw.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда, вплоть до ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">8.2.</span>
+            <span class="rule-text">
+                Запрещается <strong>раскрытие чьих-либо персональных данных</strong> без согласия владельца, а также угрозы это совершить.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда, вплоть до ЧСП</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">8.3.</span>
+            <span class="rule-text">
+                Запрещается <strong>взлом</strong>, попытка взлома или угрозы взлома чужого аккаунта.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">8.4.</span>
+            <span class="rule-text">
+                Запрещается <strong>продажа или передача аккаунтов</strong> сторонним лицам.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан по IP навсегда</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">8.5.</span>
+            <span class="rule-text">
+                Запрещается использование <strong>скинов</strong> игроков без их согласия, скины неприличного или пошлого характера, невидимые, а также скины с демонстрацией запрещённых символик и флагов.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">8.6.</span>
+            <span class="rule-text">
+                Запрещается использование <strong>никнейма</strong>, схожего на никнейм другого игрока, с целью выдачи себя за другое лицо, а также никнейма, содержащего мат, оскорбления, аморальный характер, запрещённые числа или рекламу.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан навсегда, принудительная смена ника</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      9. МИР АРТОВ И ИСКУССТВО                 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">9. Мир Артов и искусство</div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.1.</span>
+            <span class="rule-text">
+                Строительство любых <strong>мап-артов</strong> разрешено только в Мире Артов.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: 18+ арты разрешено строить дальше 3.000 координат.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.2.</span>
+            <span class="rule-text">
+                Запрещается создание, а также хранение мап-артов и книжек, <strong>нарушающих законодательство РФ</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 30 дней. Обнуление материала</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.3.</span>
+            <span class="rule-text">
+                Запрещена продажа, хранение и копирование <strong>чужих мап-артов и книжек</strong> без разрешения владельца.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Владельцам советуем закрывать свои арты сверху.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление материала и ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.4.</span>
+            <span class="rule-text">
+                Запрещается любым образом <strong>портить чужие мап-арты</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.5.</span>
+            <span class="rule-text">
+                Каждый строитель мап-арта должен <strong>обозначать границы</strong> своего планируемого мап-арта любым доступным образом.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.6.</span>
+            <span class="rule-text">
+                Запрещается создание мап-артов и книжек <strong>без согласия причастных</strong> или упоминающихся там игроков.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Обнуление материала</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.7.</span>
+            <span class="rule-text">
+                Запрещается <strong>портить Мир Артов</strong> любым способом, а также использовать его с целью проживания.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана по IP навсегда. Снос постройки без восстановления ресурсов</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">9.8.</span>
+            <span class="rule-text">
+                Запрещается продажа и размещение мап-артов и книжек, содержащие <strong>контент 18+</strong> в публичных местах.
+                <br/><span style="color:#8ab4c8;font-size:13px;">Примечание: Продажа разрешается в специализированном месте с предупреждением.</span>
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Бан на 30 дней, вплоть до бана по IP навсегда</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      10. КЛАНЫ, ГОРОДА И СООБЩЕСТВА           -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">10. Кланы, города и иные сообщества</div>
+
+        <div style="padding:6px 14px 10px 14px; color:#8ab4c8; font-size:13px; line-height:1.6; border-left:2px solid rgba(80,180,255,0.08); margin-bottom:6px;">
+            Сообщества могут получить <strong>официальную регистрацию и тэг</strong>, для этого нужно иметь не менее 12 участников и создать лидеру тикет в #поддержка через раздел "Регистрация сообщества".<br/>
+            Цвет тэга сообщества может выбрать лидер из числа незанятых и предложенных администрацией.
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">10.1.</span>
+            <span class="rule-text">
+                Сообщества могут устанавливать свои правила, <strong>не противоречащие</strong> правилам сервера.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">10.2.</span>
+            <span class="rule-text">
+                Игрок после исключения или выхода из сообщества имеет право на <strong>сбор личных ресурсов</strong> в течение 72 часов. Запрещено препятствовать ему в этом.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: Варн, вплоть до бана на 7 дней</span>
+        </div>
+
+        <div class="rule-item">
+            <span class="rule-num">10.3.</span>
+            <span class="rule-text">
+                Фермы и иные постройки, переданные сообществу, а также построенные с использованием ресурсов сообщества или помощи его участников, являются <strong>собственностью сообщества</strong>.
+            </span>
+        </div>
+        <div class="punishment-wrap">
+            <span class="punishment-badge"><span class="icon">⚡</span> Наказание: В зависимости от ситуации</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                      ОСНОВНЫЕ ТЕРМИНЫ                          -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">Основные термины</div>
+        <div class="term-grid">
+            <div class="term-item">
+                <span class="term-name">Мут</span>
+                <span class="term-desc">Временное или постоянное ограничение на использование чата</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">Варн</span>
+                <span class="term-desc">Предупреждение. 3 = бан 30 дней, 5 = бан навсегда</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">Бан</span>
+                <span class="term-desc">Временная или постоянная блокировка доступа к серверу</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">Гриферство</span>
+                <span class="term-desc">Умышленное разрушение или порча имущества других игроков</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">PvP</span>
+                <span class="term-desc">Сражение игроков друг против друга</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">ЧСП</span>
+                <span class="term-desc">Чёрный Список Проекта — бан по IP без возможности разблокировки</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">Твинк</span>
+                <span class="term-desc">Дополнительный аккаунт, принадлежащий игроку</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">Модерация</span>
+                <span class="term-desc">Группа игроков, следящих за соблюдением правил</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">Администрация</span>
+                <span class="term-desc">Группа игроков с доп. правами, управление проектом</span>
+            </div>
+            <div class="term-item">
+                <span class="term-name">Команда проекта</span>
+                <span class="term-desc">Модерация + администрация + министерство</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ФУТЕР ====== -->
+    <div class="footer">
+        ● нарушение → последствие ●
+    </div>
+
+</div>
+
+</body>
+</html>
